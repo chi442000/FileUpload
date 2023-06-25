@@ -56,6 +56,7 @@ Tóm lại, lỗ hổng file upload xảy ra có thể:
   Chúng ta có thể up lên 1 file shell bất kỳ và khai thác trực tiếp. Có một lưu ý đặc biệt đó là file thực thi phải phù hợp với Web server đang sử dụng. Bạn không thể up 1 file .jsp với Apache đúng không? À, có, nhưng nó sẽ không thực thi được. Hãy thử code 1 form upload đơn giản và up shell viết bằng .jsp xem thử đi.
 - Bypass Check Header
   Đoạn code sử dụng sẽ trông như thế này:
+  ![example](1.png)
   
 Phân loại các kiểu tấn công SQL Injection
 ![example](1.png)
