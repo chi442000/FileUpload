@@ -20,8 +20,13 @@
 
 ### Reason
  
-- Dữ liệu đầu vào từ người dùng hoặc từ các nguồn khác không được kiểm tra hoặc kiểm tra không kỹ lưỡng
-- Ứng dụng sử dụng các câu lệnh SQL động, trong đó dữ liệu được kết nối với mã SQL gốc để tạo câu lệnh SQL hoàn chỉnh
+Lỗ hổng chạy Script file upload xảy ra khi thỏa mãn những điều kiện sau:
+
+- File upload được lưu vào public directory
+
+- Có thể upload các file script
+
+Đối với uploader, khi tạo ra một ứng dụng phù hợp hai điều kiện trên thì sẽ trở thành nguyên nhân sinh ra lỗ hổng. Vì thế, việc không thỏa mãn ít nhất một trong hai điều kiện nêu trên trở thành đối sách giải quyết của lỗ hổng này.
 
 ### Dangerousness
 
