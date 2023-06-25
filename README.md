@@ -6,7 +6,7 @@
 - [Nguyên nhân](https://github.com/chi442000/fileupload#reason)
 - [Mức độ nguy hiểm ](https://github.com/chi442000/fileupload#dangerousness)
 - [Khai thác lỗ hổng](https://github.com/chi442000/fileupload#exploit)
-    - [In-band SQLi](https://github.com/chi442000/SQLi#In-band-SQLi)
+    - [Filter Input](https://github.com/chi442000/SQLi#filter-input)
     - [Inferential SQLi (Blind SQLi)](https://github.com/chi442000/SQLi#Inferential-SQLi)
     - [Out-of-band SQLi](https://github.com/chi442000/SQLi#out-of-band-sqli)
 - [Các phòng chống SQLi](https://github.com/chi442000/SQLi#prevention)
@@ -52,6 +52,7 @@ Tóm lại, lỗ hổng file upload xảy ra có thể:
 
 ### Exploit
 Đây là một số cách bypass mình đã tìm hiểu được và đã tạo được lab demo
+#### **Filter input**
 - Không lọc dữ liệu đầu vào (Có thể tải lên bất kì file nào)
   Chúng ta có thể up lên 1 file shell bất kỳ và khai thác trực tiếp. Có một lưu ý đặc biệt đó là file thực thi phải phù hợp với Web server đang sử dụng. Bạn không thể up 1 file .jsp với Apache đúng không? À, có, nhưng nó sẽ không thực thi được. Hãy thử code 1 form upload đơn giản và up shell viết bằng .jsp xem thử đi.
 - Bypass Check Header
