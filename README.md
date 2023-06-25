@@ -12,7 +12,7 @@
     - [Whitelist](https://github.com/chi442000/fileupload#whitelist)
     - [Check Image](https://github.com/chi442000/fileupload#check-image)
 - [Các phòng chống lỗ hổng File Upload](https://github.com/chi442000/SQLi#prevention)
-- [Kết luận](https://github.com/chi442000/fileupload#in-conclusion)
+
 
 
 ### Concept
@@ -108,6 +108,6 @@ Các trình quét vi-rút rất hữu ích trong việc phát hiện các tệp 
 (Shell.php.png -> md5.png)
 - Cấu hình apache core giới hạn filename, có bao gồm cả file extension (jpg, png,...)
 ![example](7.png)
-###  In conclusion
+
 
 
