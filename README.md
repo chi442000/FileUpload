@@ -86,73 +86,28 @@ Việc xác định định dạng file ngoài việc dựa vào extension, ngư
 ![example](5.png)
 
 
-
-#### **In-band SQLi**
-
-Đây là dạng tấn công phổ biến nhất và cũng dễ để khai thác lỗ hổng SQL Injection nhất
-Xảy ra khi hacker có thể tổ chức tấn công và thu thập kết quả trực tiếp trên cùng một kênh liên lạc
-In-Band SQLi chia làm 2 loại chính:
-- Error-based SQLi
-- Union-based SQLi
-
-*Error-based SQLi*
-- Là một kỹ thuật tấn công SQL Injection dựa vào thông báo lỗi được trả về từ Database Server có chứa thông tin về cấu trúc của cơ sở dữ liệu.
-- Trong một vài trường hợp, chỉ một mình Error-based là đủ cho hacker có thể liệt kê được các thuộc tính của cơ sở dữ liệu
-
-![example](2.png)
-
-*Union-based SQLi*
-
-Là một kỹ thuật tấn công SQL Injection dựa vào sức mạnh của toán tử UNION trong ngôn ngữ SQL cho phép tổng hợp kết quả của 2 hay nhiều câu truy vấn SELECTION trong cùng 1 kết quả và được trả về như một phần của HTTP response
-
-![example](3.png)
-
-#### Inferential SQLi
-
-- Không giống như In-band SQLi, Inferential SQL Injection tốn nhiều thời gian hơn cho việc tấn công do không có bất kì dữ liệu nào được thực sự trả về thông qua web application và hacker thì không thể theo dõi kết quả trực tiếp như kiểu tấn công In-band
-- Thay vào đó, kẻ tấn công sẽ cố gắng xây dựng lại cấu trúc cơ sở dữ liệu bằng việc gửi đi các payloads, dựa vào kết quả phản hồi của web application và kết quả hành vi của database server.
-- Có 2 dạng tấn công chính:
-
-*Blind-boolean-based*
-
-*Blind-time-based SQLi*
-
-**Blind-boolean-based**
-
-- Là kĩ thuật tấn công SQL Injection dựa vào việc gửi các truy vấn tới cơ sở dữ liệu bắt buộc ứng dụng trả về các kết quả khác nhau phụ thuộc vào câu truy vấn là True hay False.
-- Tuỳ thuộc kết quả trả về của câu truy vấn mà HTTP reponse có thể thay đổi, hoặc giữ nguyên
-- Kiểu tấn công này thường chậm (đặc biệt với cơ sở dữ liệu có kích thước lớn) do người tấn công cần phải liệt kê từng dữ liệu, hoặc mò từng kí tự
-
-![example](4.png)
-
-
-**Time-based Blind SQLi**
-- Time-base Blind SQLi là kĩ thuật tấn công dựa vào việc gửi những câu truy vấn tới cơ sở dữ liệu và buộc cơ sở dữ liệu phải chờ một khoảng thời gian (thường tính bằng giây) trước khi phản hồi.
-- Thời gian phản hồi (ngay lập tức hay trễ theo khoảng thời gian được set) cho phép kẻ tấn công suy đoán kết quả truy vấn là TRUE hay FALSE
-- Kiểu tấn công này cũng tốn nhiều thời gian tương tự như Boolean-based SQLi
-
-#### Out-of-band SQLi
-
-- Out-of-band SQLi không phải dạng tấn công phổ biến, chủ yếu bởi vì nó phụ thuộc vào các tính năng được bật trên Database Server được sở dụng bởi Web Application.
-- Kiểu tấn công này xảy ra khi hacker không thể trực tiếp tấn công và thu thập kết quả trực tiếp trên cùng một kênh (In-band SQLi), và đặc biệt là việc phản hồi từ server là không ổn định
-- Kiểu tấn công này phụ thuộc vào khả năng server thực hiện các request DNS hoặc HTTP để chuyển dữ liệu cho kẻ tấn công.
-- Ví dụ như câu lệnh xp_dirtree trên Microsoft SQL Server có thể sử dụng để thực hiện DNS request tới một server khác do kẻ tấn công kiểm soát, hoặc Oracle Database’s UTL HTTP Package có thể sử dụng để gửi HTTP request từ SQL và PL/SQL tới server do kẻ tấn công làm chủ
-
-
 ### Prevention 
 
-Mặc dù SQL rất nguy hại nhưng cũng dễ phòng chống. Gần đây, hầu như chúng ta ít viết SQL thuần mà toàn sử dụng ORM (Object-Relational Mapping) framework. Các framework web này sẽ tự tạo câu lệnh SQL nên hacker cũng khó tấn công hơn.
-
-Tuy nhiên, có rất nhiều site vẫn sử dụng SQL thuần để truy cập dữ liệu. Đây chính là mồi ngon cho hacker. Để bảo vệ bản thân trước SQL Injection, ta có thể thực hiện các biện pháp sau.
-
-- Lọc dữ liệu từ người dùng: Cách phòng chống này tương tự như XSS. Ta sử dụng filter để lọc các kí tự đặc biệt (; ” ‘) hoặc các từ khoá (SELECT, UNION) do người dùng nhập vào. Nên sử dụng thư viện/function được cung cấp bởi framework. Viết lại từ đầu vừa tốn thời gian vừa dễ sơ sót.
-- Không cộng chuỗi để tạo SQL: Sử dụng parameter thay vì cộng chuỗi. Nếu dữ liệu truyền vào không hợp pháp, SQL Engine sẽ tự động báo lỗi, ta không cần dùng code để check.
-- Không hiển thị exception, message lỗi: Hacker dựa vào message lỗi để tìm ra cấu trúc database. Khi có lỗi, ta chỉ hiện thông báo lỗi chứ đừng hiển thị đầy đủ thông tin về lỗi, tránh hacker lợi dụng.
-- Phân quyền rõ ràng trong DB: Nếu chỉ truy cập dữ liệu từ một số bảng, hãy tạo một account trong DB, gán quyền truy cập cho account đó chứ đừng dùng account root hay sa. Lúc này, dù hacker có inject được sql cũng không thể đọc dữ liệu từ các bảng chính, sửa hay xoá dữ liệu.
-- Backup dữ liệu thường xuyên: Các cụ có câu “cẩn tắc vô áy náy”. Dữ liệu phải thường xuyên được backup để nếu có bị hacker xoá thì ta vẫn có thể khôi phục được. Còn nếu cả dữ liệu backup cũng bị xoá luôn thì … chúc mừng bạn, update CV rồi tìm cách chuyển công ty thôi!
-Mặc dù loại tấn công này được coi là một trong những loại nguy hiểm và rủi ro nhất, nhưng vẫn nên chuẩn bị một kế hoạch ngăn ngừa. Bởi vì sự phổ biến của cuộc tấn công này, có khá nhiều cách để ngăn chặn nó.
-
-
+Bất kỳ đầu vào nào đến từ người dùng đều phải được xử lý một cách cẩn thận cho đến khi nó được đảm bảo là an toàn. Điều này đặc biệt đúng với các tệp được tải lên, bởi vì ban đầu ứng dụng của bạn thường coi chúng như một khối dữ liệu vô hại, cho phép kẻ tấn công tiêm bất kỳ loại mã độc hại nào mà chúng muốn vào hệ thống của bạn.
+- Tách nội dung tải lên
+Các tệp tải lên thường ít được xử lý, trừ khi đang xây dựng một trang web xử lý hình ảnh, video hoặc tài liệu. Nếu đúng như vậy, việc đảm bảo các tệp đã tải lên được giữ riêng biệt với code hệ thống là yếu tố quan trọng nhất. Dùng các dịch vụ lưu trữ đám mây hoặc hệ thống quản lý nội dung để lưu trữ các tệp đã tải lên hoặc cần có khả năng ghi các tệp đã tải lên vào cơ sở dữ liệu của mình. Cả hai cách tiếp cận này đều ngăn chặn việc thực thi ngẫu nhiên script. Việc lưu trữ các tệp đã tải lên trên một máy chủ tệp hoặc trong một phân vùng đĩa riêng biệt cũng có ích, cô lập thiệt hại tiềm ẩn mà một tệp độc hại khả năng gây ra ra.
+- Đảm bảo không thể thực thi tệp tải lên
+Máy chủ web phải có quyền đọc và ghi trên các thư mục được dùng để lưu trữ nội dung đã tải lên, nhưng không thể thực thi bất kỳ tệp nào ở đó.
+- Đổi tên tệp tải lên
+Viết lại hoặc làm xáo trộn tên tệp sẽ khiến attacker khó xác định được tệp độc hại sau khi chúng được tải lên và chúng sẽ không thể xác định tên tệp để thực thi file đã upload được. Ngoài ra, cần loại bỏ null byte trong file name.
+- Xác thực định dạng tệp và tiện ích mở rộng
+Kiểm tra phần mở rộng tệp với danh sách trắng gồm các phần mở rộng được phép thay vì danh sách đen gồm các phần mở rộng bị cấm. Việc đoán những tiện ích mở rộng bạn có thể muốn cho phép dễ dàng hơn nhiều so với việc đoán những tiện ích mở rộng mà kẻ tấn công có thể cố gắng tải lên.
+- Xác thực Content-Type
+Các tệp được tải lên từ trình duyệt sẽ được kèm theo tiêu đề Content-Type, đảm bảo chúng thuộc white list (mặc khác, hãy lưu ý rằng các tập lệnh hoặc proxy đơn giản khả năng giả mạo loại tệp, vì thế, biện pháp bảo vệ này, mặc dù hữu ích, nhưng không đủ để ngăn cản kẻ tấn công.)
+- Dùng trình quét vi-rút
+Các trình quét vi-rút rất hữu ích trong việc phát hiện các tệp độc hại giả dạng một loại tệp khác.
+- Giới hạn kích thước file tải lên đề phòng DoS như đã nêu ở trên
+- Sử dụng một khuôn khổ đã thiết lập để xử lý trước quá trình tải lên tệp thay vì cố gắng viết các cơ chế xác thực của riêng bạn.
+- Ép định dạng file
+![example](6.png)
+(Shell.php.png -> md5.png)
+- Cấu hình apache core giới hạn filename, có bao gồm cả file extension (jpg, png,...)
+![example](7.png)
 ###  In conclusion
 
 
