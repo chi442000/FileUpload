@@ -1,6 +1,5 @@
 # FileUpload
 
-
 ### Contents
 - [Khái niệm FileUpload](https://github.com/chi442000/fileupload#Concept)
 - [Nguyên nhân](https://github.com/chi442000/fileupload#reason)
@@ -12,7 +11,6 @@
     - [Whitelist](https://github.com/chi442000/fileupload#whitelist)
     - [Check Image](https://github.com/chi442000/fileupload#check-image)
 - [Các phòng chống lỗ hổng File Upload](https://github.com/chi442000/SQLi#prevention)
-
 
 
 ### Concept
