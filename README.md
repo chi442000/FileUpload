@@ -7,8 +7,10 @@
 - [Mức độ nguy hiểm ](https://github.com/chi442000/fileupload#dangerousness)
 - [Khai thác lỗ hổng](https://github.com/chi442000/fileupload#exploit)
     - [Filter Input](https://github.com/chi442000/fileupload#filter-input)
-    - [Inferential SQLi (Blind SQLi)](https://github.com/chi442000/SQLi#Inferential-SQLi)
-    - [Out-of-band SQLi](https://github.com/chi442000/SQLi#out-of-band-sqli)
+    - [Header](https://github.com/chi442000/fileupload#header)
+    - [Blacklist](https://github.com/chi442000/fileupload#blacklist)
+    - [Whitelist](https://github.com/chi442000/fileupload#whitelist)
+    - [Check Image](https://github.com/chi442000/fileupload#check-image)
 - [Các phòng chống SQLi](https://github.com/chi442000/SQLi#prevention)
 - [Kết luận](https://github.com/chi442000/XSS#in-conclusion)
 
@@ -55,6 +57,7 @@ Tóm lại, lỗ hổng file upload xảy ra có thể:
 #### **Filter input**
 - Không lọc dữ liệu đầu vào (Có thể tải lên bất kì file nào)
   Chúng ta có thể up lên 1 file shell bất kỳ và khai thác trực tiếp. Có một lưu ý đặc biệt đó là file thực thi phải phù hợp với Web server đang sử dụng. Bạn không thể up 1 file .jsp với Apache đúng không? À, có, nhưng nó sẽ không thực thi được. Hãy thử code 1 form upload đơn giản và up shell viết bằng .jsp xem thử đi.
+#### Header
 - Bypass Check Header
   Đoạn code sử dụng sẽ trông như thế này:
   ![example](1.png)
@@ -64,16 +67,18 @@ Ví dụ web cho phép bạn upload file .png, hãy up một cái shell lên, ch
 
 +Content-type: image/png+
 Sau đó forward nó là được
+#### Blacklist
 - Bypass Check the blacklisted
 Blacklist là danh sách những file bị cấm tải lên. Giả sử đoạn code đó sẽ trông như sau:
 ![example](2.png)
 Bypass qua filter này có thể Upload file có đuôi .php3, .php4, .php5, .pHp, ... Lúc đó tôi đã tự đặt ra câu hỏi là tại sao lại có những số 3 4 5 (ở các tài liệu đọc được), thế 7 8 9 10 thì có được không? Một câu hỏi giúp ta tìm hiểu nhiều hơn, nên tôi sẽ không trả lời nó ở đây.
+#### Whitelist
 - Bypass Check the whitelisted
 Ngược lại với Blacklist thì Whitelist sẽ là danh sách những file được cho phép tải lên. Đây là filter khó bypass nhất
 ![example](3.png)
 Đúng thế đó. Tôi đã thử nhiểu cách như là sử dụng double extension (Ví dụ như web chỉ cho bạn up file .png thì bạn thêm .png vào file shell, shell.php.png -> shell.png.php), sử dụng null byte (shell.php%00.jpg) nhưng đều không được. Nó có nhiều lý do. Với việc sử dụng code PHP7 thì một số cách bypass kia đã không thể thực hiện được. Nếu bạn tạo lab về lỗ hổng này có thể sử dụng một phiên bản PHP thấp hơn. Tuy nhiên thì tôi vẫn cần nhắc đến việc sử dụng 2 cách này để bypass vì đa số các web vẫn được code bằng PHP5, và có thể bị dính lỗ hổng này.
-
 Một cách khác, đó là cấu hình file .htaccess. Có lẽ đây là cách duy nhất để bypass whitelist với PHP cao cấp
+#### Check image
 - Bypass check image giả hay thật
 Việc xác định định dạng file ngoài việc dựa vào extension, người ta còn dựa vào signature file. Việc xác định signature file sẽ dựa vào 8 bits đầu của file. Code của nó sẽ trông như thế này.
 ![example](4.png)
