@@ -2,7 +2,7 @@
 
 
 ### Contents
-- [Khái niệm SQLi](https://github.com/chi442000/SQLi#Concept)
+- [Khái niệm FileUpload](https://github.com/chi442000/fileupload#Concept)
 - [Nguyên nhân](https://github.com/chi442000/SQLi#reason)
 - [Mức độ nguy hiểm ](https://github.com/chi442000/SQLi#dangerousness)
 - [Các loại tấn công SQLi](https://github.com/chi442000/SQLi#types-of-attacks)
