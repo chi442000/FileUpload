@@ -3,9 +3,9 @@
 
 ### Contents
 - [Khái niệm FileUpload](https://github.com/chi442000/fileupload#Concept)
-- [Nguyên nhân](https://github.com/chi442000/SQLi#reason)
-- [Mức độ nguy hiểm ](https://github.com/chi442000/SQLi#dangerousness)
-- [Các loại tấn công SQLi](https://github.com/chi442000/SQLi#types-of-attacks)
+- [Nguyên nhân](https://github.com/chi442000/fileupload#reason)
+- [Mức độ nguy hiểm ](https://github.com/chi442000/fileupload#dangerousness)
+- [Khai thác lỗ hổng](https://github.com/chi442000/fileupload#exploit)
     - [In-band SQLi](https://github.com/chi442000/SQLi#In-band-SQLi)
     - [Inferential SQLi (Blind SQLi)](https://github.com/chi442000/SQLi#Inferential-SQLi)
     - [Out-of-band SQLi](https://github.com/chi442000/SQLi#out-of-band-sqli)
@@ -32,7 +32,8 @@ Tùy vào mức độ tinh vi, SQL Injection có thể cho phép kẻ tấn côn
 - Đánh cắp các thông tin trong CSDL
 - Chiếm quyền điều khiển hệ thống
 
-### Types of Attacks
+### Exploit
+
 Phân loại các kiểu tấn công SQL Injection
 ![example](1.png)
 
