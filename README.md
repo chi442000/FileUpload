@@ -6,7 +6,7 @@
 - [Nguyên nhân](https://github.com/chi442000/fileupload#reason)
 - [Mức độ nguy hiểm ](https://github.com/chi442000/fileupload#dangerousness)
 - [Khai thác lỗ hổng](https://github.com/chi442000/fileupload#exploit)
-    - [Filter Input](https://github.com/chi442000/SQLi#filter-input)
+    - [Filter Input](https://github.com/chi442000/fileupload#filter-input)
     - [Inferential SQLi (Blind SQLi)](https://github.com/chi442000/SQLi#Inferential-SQLi)
     - [Out-of-band SQLi](https://github.com/chi442000/SQLi#out-of-band-sqli)
 - [Các phòng chống SQLi](https://github.com/chi442000/SQLi#prevention)
