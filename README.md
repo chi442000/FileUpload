@@ -2,7 +2,7 @@
 
 
 ### Contents
-- [Khái niệm FileUpload](https://github.com/chi442000/fileupload#Kháiniệm)
+- [Khái niệm FileUpload](https://github.com/chi442000/fileupload#Concept)
 - [Nguyên nhân](https://github.com/chi442000/SQLi#reason)
 - [Mức độ nguy hiểm ](https://github.com/chi442000/SQLi#dangerousness)
 - [Các loại tấn công SQLi](https://github.com/chi442000/SQLi#types-of-attacks)
@@ -13,9 +13,10 @@
 - [Kết luận](https://github.com/chi442000/XSS#in-conclusion)
 
 
-### Kháiniệm
-- SQL Injection là một kỹ thuật cho phép những kẻ tấn công lợi dụng lỗ hổng của việc kiểm tra dữ liệu đầu vào trong các ứng dụng web và các thông báo lỗi của hệ quản trị cơ sở dữ liệu trả về để inject (tiêm vào) và thi hành các câu lệnh SQL bất hợp pháp
-- SQL injection có thể cho phép những kẻ tấn công thực hiện các thao tác trên cơ sở dữ liệu của ứng dụng, thậm chí là server mà ứng dụng đó đang chạy.
+### Concept
+- Lỗ hổng File Upload xảy ra khi máy chỉ web cho phép người dùng upload file lên hệ thống mà không xác thực đầy đủ những thứ như tên, loại, nội dung hoặc kích thước của chúng. Khi không có những hạn chế đối với file thì attacker có thể lợi dụng điều đó để thực thi các kịch bản tấn công, thậm chí là thực thi mã từ xa.
+
+- Web shell là một tập lệnh độc hại cho phép attacker thực hiện các lệnh tùy ý trên máy chủ web từ xa chỉ bằng cách gửi các yêu cấp HTTP đến đúng điểm cuối. Nếu có thể upload web shell thành công, bạn có toàn quyền kiểm soát máy chủ.
 
 ### Reason
  
