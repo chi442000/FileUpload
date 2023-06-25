@@ -57,23 +57,29 @@ Tóm lại, lỗ hổng file upload xảy ra có thể:
 - Bypass Check Header
   Đoạn code sử dụng sẽ trông như thế này:
   ![example](1.png)
-  
-Phân loại các kiểu tấn công SQL Injection
-![example](1.png)
+Để bypass qua filter này, hãy dùng burp suite sửa content type thành image/...
 
-SQL Injection có thể chia nhỏ thành các dạng sau:
+Ví dụ web cho phép bạn upload file .png, hãy up một cái shell lên, chặn cái request đó lại và sửa:
 
-- In-band SQLi
++Content-type: image/png+
+Sau đó forward nó là được
+- Bypass Check the blacklisted
+Blacklist là danh sách những file bị cấm tải lên. Giả sử đoạn code đó sẽ trông như sau:
+![example](2.png)
+Bypass qua filter này có thể Upload file có đuôi .php3, .php4, .php5, .pHp, ... Lúc đó tôi đã tự đặt ra câu hỏi là tại sao lại có những số 3 4 5 (ở các tài liệu đọc được), thế 7 8 9 10 thì có được không? Một câu hỏi giúp ta tìm hiểu nhiều hơn, nên tôi sẽ không trả lời nó ở đây.
+- Bypass Check the whitelisted
+Ngược lại với Blacklist thì Whitelist sẽ là danh sách những file được cho phép tải lên. Đây là filter khó bypass nhất
+![example](3.png)
+Đúng thế đó. Tôi đã thử nhiểu cách như là sử dụng double extension (Ví dụ như web chỉ cho bạn up file .png thì bạn thêm .png vào file shell, shell.php.png -> shell.png.php), sử dụng null byte (shell.php%00.jpg) nhưng đều không được. Nó có nhiều lý do. Với việc sử dụng code PHP7 thì một số cách bypass kia đã không thể thực hiện được. Nếu bạn tạo lab về lỗ hổng này có thể sử dụng một phiên bản PHP thấp hơn. Tuy nhiên thì tôi vẫn cần nhắc đến việc sử dụng 2 cách này để bypass vì đa số các web vẫn được code bằng PHP5, và có thể bị dính lỗ hổng này.
 
-Error-based SQLi
+Một cách khác, đó là cấu hình file .htaccess. Có lẽ đây là cách duy nhất để bypass whitelist với PHP cao cấp
+- Bypass check image giả hay thật
+Việc xác định định dạng file ngoài việc dựa vào extension, người ta còn dựa vào signature file. Việc xác định signature file sẽ dựa vào 8 bits đầu của file. Code của nó sẽ trông như thế này.
+![example](4.png)
+Để bypass qua trường hợp này, hãy thêm một đoạn định dạng vào đầu file shell. Trong trường hợp web upload cho phép upload gif thì thêm GIF89a vào đầu tiên, đánh lừa rằng một file gif đã được tải lên:
+![example](5.png)
 
-Union-based SQLi
-- Inferential SQLi (Blind SQLi)
 
-Blind-boolean-based SQLi
-
-Time-based-blind SQLi
-- Out-of-band SQLi
 
 #### **In-band SQLi**
 
