@@ -11,8 +11,8 @@
     - [Blacklist](https://github.com/chi442000/fileupload#blacklist)
     - [Whitelist](https://github.com/chi442000/fileupload#whitelist)
     - [Check Image](https://github.com/chi442000/fileupload#check-image)
-- [Các phòng chống SQLi](https://github.com/chi442000/SQLi#prevention)
-- [Kết luận](https://github.com/chi442000/XSS#in-conclusion)
+- [Các phòng chống lỗ hổng File Upload](https://github.com/chi442000/SQLi#prevention)
+- [Kết luận](https://github.com/chi442000/fileupload#in-conclusion)
 
 
 ### Concept
