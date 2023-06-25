@@ -30,15 +30,33 @@ Lỗ hổng chạy Script file upload xảy ra khi thỏa mãn những điê
 
 ### Dangerousness
 
-Tùy vào mức độ tinh vi, SQL Injection có thể cho phép kẻ tấn công:
+Ảnh hưởng của lỗ hổng file upload phụ thuộc vào hai yếu tố chính:
 
-- Vượt qua các khâu xác thực người dùng
-- Chèn, xóa hoặc sửa đổi dữ liệu
-- Đánh cắp các thông tin trong CSDL
-- Chiếm quyền điều khiển hệ thống
+- Phần của file mà trang web không thể xác định được đúng cách
+
+- Những hạn chế được áp dụng lên file sau khi đã upload thành công
+
+Trường hợp kích thước của tệp nằm ngoài ngưỡng dự kiến có thể kích hoạt tấn công DoS, attacker có thể tấn công lấp đầy không gian đĩa có sẵn.
+
+Trường file được upload không được xác thực đúng cách có thể cho phép attacker ghi đè các tệp quan trọng bằng cách tải lên tệp có cùng tên. Nếu máy chủ cũng dễ bị truy cập thư mục thì attacker có thể upload file vào những vị trí không xác định được.
+
+Trường hợp tệ nhất, loại file không được xác định đúng cách và cấu hình máy chủ cho phép file được thực thi dưới dạng mã (như .php hay .jsp). Trong trường hợp này, attacker có thể upload file có chức năng như một web shell và có thể cho attacker có toàn quyền kiểm soát máy chú.
+
+Tóm lại, lỗ hổng file upload xảy ra có thể:
+
+- Làm lộ các thông tin nội bộ, chẳng hạn như đường dẫn của máy chủ
+
+- Là tiền đề dẫn đến các lỗ hổng khác
+
+- Khiến attacker chiếm quyền điều khiển hệ thống
 
 ### Exploit
-
+Đây là một số cách bypass mình đã tìm hiểu được và đã tạo được lab demo
+- Không lọc dữ liệu đầu vào (Có thể tải lên bất kì file nào)
+  Chúng ta có thể up lên 1 file shell bất kỳ và khai thác trực tiếp. Có một lưu ý đặc biệt đó là file thực thi phải phù hợp với Web server đang sử dụng. Bạn không thể up 1 file .jsp với Apache đúng không? À, có, nhưng nó sẽ không thực thi được. Hãy thử code 1 form upload đơn giản và up shell viết bằng .jsp xem thử đi.
+- Bypass Check Header
+  Đoạn code sử dụng sẽ trông như thế này:
+  
 Phân loại các kiểu tấn công SQL Injection
 ![example](1.png)
 
